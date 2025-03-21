@@ -1,9 +1,9 @@
 <launch>
 
-  <arg name="relative_pose_a_l"          default="[0.25, -0.25, -0.016944540722317047, 0.0 , 0.0, 0.78539816339 ]" />
-  <arg name="relative_pose_a_r"          default="[0.25, 0.25, -0.016944540722317047, 0.0 , 0.0, 2.35619449019   ]" />
-  <arg name="relative_pose_b_l"          default="[-0.25, 0.25, -0.016944540722317047, 0.0 , 0.0, -2.35619449019 ]" />
-  <arg name="relative_pose_b_r"          default="[-0.25, -0.25, -0.016944540722317047, 0.0 , 0.0, -0.78539816339 ]" />
+  <arg name="relative_pose_a_l"          default="[0, -0.25, -0.016944540722317047, 0.0 , 0.0, 0.0 ]" />
+  <arg name="relative_pose_a_r"          default="[0.25, 0, -0.016944540722317047, 0.0 , 0.0, 1.5707963   ]" />
+  <arg name="relative_pose_b_l"          default="[-0.0, 0.25, -0.016944540722317047, 0.0 , 0.0, -3.1415927  ]" />
+  <arg name="relative_pose_b_r"          default="[-0.25, -0.0, -0.016944540722317047, 0.0 , 0.0, -1.5707963  ]" />
   
   
   <!-- <arg name="admittance" default="[0.0,0.0,0.001,0.0,0.0,0.0]" /> -->
@@ -13,6 +13,8 @@
     <arg name="UR_prefix" value="UR10_l" />
     <arg name="external_localization" value="False" />
     <arg name="relative_pose" value="$(arg relative_pose_a_l)" />
+    <arg name="object_pose_topic" default="/object1/object_pose" />
+    <arg name="object_vel_topic" default="/object1/object_vel" />
   </include>
 
   <include file="$(find manipulator_control)/launch/dezentralized_admittance_controller_sim.launch">
@@ -20,6 +22,8 @@
     <arg name="UR_prefix" value="UR10_r" />
     <arg name="external_localization" value="False" />
     <arg name="relative_pose" value="$(arg relative_pose_a_r)" />
+    <arg name="object_pose_topic" default="/object2/object_pose" />
+    <arg name="object_vel_topic" default="/object2/object_vel" />
   </include>
 
   <include file="$(find manipulator_control)/launch/dezentralized_admittance_controller_sim.launch">
@@ -27,6 +31,8 @@
     <arg name="UR_prefix" value="UR10_l" />
     <arg name="external_localization" value="False" />
     <arg name="relative_pose" value="$(arg relative_pose_b_l)" />
+    <arg name="object_pose_topic" default="/object3/object_pose" />
+    <arg name="object_vel_topic" default="/object3/object_vel" />
   </include>
 
   <include file="$(find manipulator_control)/launch/dezentralized_admittance_controller_sim.launch">
@@ -34,6 +40,8 @@
     <arg name="UR_prefix" value="UR10_r" />
     <arg name="external_localization" value="False" />
     <arg name="relative_pose" value="$(arg relative_pose_b_r)" />
+    <arg name="object_pose_topic" default="/object4/object_pose" />
+    <arg name="object_vel_topic" default="/object4/object_vel" />
   </include>
 
 </launch>

@@ -27,15 +27,12 @@
     </include> 
        
     <!-- launch virtual object -->
-    <include file="$(find virtual_object)/launch/virtual_object.launch" />
-
-    <!-- set initial pose -->
-    <node type="set_virtual_object_pose.py" name="set_virtual_object_pose" pkg="mur_examples" launch-prefix="bash -c 'sleep $(arg node_start_delay); $0 $@' " /> 
+    <include file="$(find mrs_material_testing)/launch/virtual_objects.launch">
+        <arg name="node_start_delay" value="$(arg node_start_delay)" />
+    </include>
 
     <!-- move robots to initial position -->
     <node name="move_all_URs_to_pose" pkg="mrs_material_testing" type="move_all_URs_to_pose.py" launch-prefix="bash -c 'sleep $(arg node_start_delay2); $0 $@' " output="screen" />
-
-    <!-- <node name="move_all_URs_to_initial_pose" pkg="moveit_ros_visualization" type="moveit_run_path" args="$(find mur_examples)/path/move_all_URs_to_initial_pose.path" output="screen" /> -->
 
     <node type="rviz" name="rviz_handling" pkg="rviz" args="-d $(find mur_examples)/rviz/multi_mur_handling.rviz" /> 
 
