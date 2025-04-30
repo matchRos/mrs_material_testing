@@ -1,0 +1,67 @@
+<launch>
+
+  <arg name="frame_id"         default="map" />
+  <arg name="node_start_delay" default="2.0" doc="used to delay nodes that should not start right away"/>
+
+  <arg name="object1_name"     default="object1" />
+  <arg name="object2_name"     default="object2" />
+  <arg name="object3_name"     default="object3" />
+  <arg name="object4_name"     default="object4" />
+
+  <arg name="target_pose" default='[0.0,0.0,1.5,0.0, 0.0, -0.7071068, 0.7071068]'/>
+
+  <group ns="$(arg object1_name)">
+    <rosparam file="$(find virtual_object)/config/virtual_object.yaml" command="load" />
+
+    <node name="$(arg object1_name)_object_node" pkg="virtual_object" type="virtual_object.py" output="screen">
+      <param name="object_frame" type="string" value="$(arg object1_name)"/>
+    </node>
+  </group>
+
+  <group ns="$(arg object2_name)">
+    <rosparam file="$(find virtual_object)/config/virtual_object.yaml" command="load" />
+
+    <node name="$(arg object2_name)_object_node" pkg="virtual_object" type="virtual_object.py" output="screen">
+      <param name="object_frame" type="string" value="$(arg object2_name)"/>
+    </node>
+  </group>
+
+  <group ns="$(arg object3_name)">
+    <rosparam file="$(find virtual_object)/config/virtual_object.yaml" command="load" />
+
+    <node name="$(arg object3_name)_object_node" pkg="virtual_object" type="virtual_object.py" output="screen">
+      <param name="object_frame" type="string" value="$(arg object3_name)"/>
+    </node>
+  </group>
+
+  <group ns="$(arg object4_name)">
+    <rosparam file="$(find virtual_object)/config/virtual_object.yaml" command="load" />
+
+    <node name="$(arg object4_name)_object_node" pkg="virtual_object" type="virtual_object.py" output="screen">
+      <param name="object_frame" type="string" value="$(arg object4_name)"/>
+    </node>
+  </group>
+
+    <!-- set initial pose -->
+  <node type="set_virtual_object_pose.py" name="$(arg object1_name)_set_virtual_object_pose" pkg="mur_examples" launch-prefix="bash -c 'sleep $(arg node_start_delay); $0 $@' " >
+    <rosparam param="target_pose" subst_value="True">$(arg target_pose) </rosparam>   
+    <param name="pose_topic" value="$(arg object1_name)/set_pose" />
+  </node>
+
+  <node type="set_virtual_object_pose.py" name="$(arg object2_name)_set_virtual_object_pose" pkg="mur_examples" launch-prefix="bash -c 'sleep $(arg node_start_delay); $0 $@' " >
+    <rosparam param="target_pose" subst_value="True">$(arg target_pose) </rosparam>   
+    <param name="pose_topic" value="$(arg object2_name)/set_pose" />
+  </node>
+
+  <node type="set_virtual_object_pose.py" name="$(arg object3_name)_set_virtual_object_pose" pkg="mur_examples" launch-prefix="bash -c 'sleep $(arg node_start_delay); $0 $@' " >
+    <rosparam param="target_pose" subst_value="True">$(arg target_pose) </rosparam>   
+    <param name="pose_topic" value="$(arg object3_name)/set_pose" />
+  </node>
+
+  <node type="set_virtual_object_pose.py" name="$(arg object4_name)_set_virtual_object_pose" pkg="mur_examples" launch-prefix="bash -c 'sleep $(arg node_start_delay); $0 $@' " >
+    <rosparam param="target_pose" subst_value="True">$(arg target_pose) </rosparam>   
+    <param name="pose_topic" value="$(arg object4_name)/set_pose" />
+  </node>
+
+
+</launch>
