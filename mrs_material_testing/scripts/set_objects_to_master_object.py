@@ -27,16 +27,13 @@ class VirtualObjectReplicator:
                 pub.publish(self.master_pose)
                 rospy.sleep(0.5)  # Optional: Sleep to allow for message processing
                 rospy.loginfo(f"Published pose to {topic}")
-            rospy.loginfo("Replicated pose to all followers.")
-            
-            rospy.signal_shutdown("Pose replicated to all followers.")
         
 
 if __name__ == "__main__":
     rospy.init_node("virtual_object_pose_replicator")
 
     # Roboter-IDs und Arme definieren
-    follower_namespaces = ["mur620b", "mur620c"]
+    follower_namespaces = ["mur620b"]
     arms = ["UR10_l", "UR10_r"]
 
     replicator = VirtualObjectReplicator(follower_namespaces, arms)
