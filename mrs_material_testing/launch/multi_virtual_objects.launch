@@ -1,0 +1,27 @@
+<launch>
+    <!-- Basic launch file for one robot in the match_world_common map-->
+  
+  
+    <arg name="robot1_name"  default="mur620b"/>
+    <arg name="robot2_name"  default="mur620c"/>
+    <arg name="node_start_delay" default="5.0" doc="used to delay nodes that should not start right away"/>
+    <arg name="node_start_delay2" default="25.0" doc="used to delay nodes that should not start right away"/>
+    
+    <group ns="$(arg robot1_name)/UR10_l">
+
+        <include file="$(find virtual_object)/launch/virtual_object.launch">
+            <arg name="frame_id"     default="$(arg robot1_name)" /> 
+            <arg name="tf_prefix"   default="$(arg robot1_name)/UR10_l" />
+        </include> 
+    </group>
+       
+    <group ns="$(arg robot1_name)/UR10_r">
+
+        <include file="$(find virtual_object)/launch/virtual_object.launch">
+            <arg name="frame_id"     default="$(arg robot1_name)" /> 
+            <arg name="tf_prefix"   default="$(arg robot1_name)/UR10_r" />
+        </include>
+    </group>
+
+
+  </launch>
