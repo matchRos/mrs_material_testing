@@ -18,10 +18,10 @@ def main():
     steps = int(duration * 100)  # 500 steps
     wait = int(duration * 1)  # 500 steps
     d_start = 0.0
-    d_end = 0.1
+    d_end = 0.02
     d_step = (d_end - d_start) / steps
     phi_start = 0.0
-    phi_end = -90.0
+    phi_end = -10.0
     omega = ((phi_end - phi_start) / 180 * math.pi) / duration
 
     for i in range(wait):

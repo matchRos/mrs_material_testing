@@ -33,7 +33,7 @@ if __name__ == "__main__":
     rospy.init_node("virtual_object_pose_replicator")
 
     # Roboter-IDs und Arme definieren
-    follower_namespaces = ["mur620b"]
+    follower_namespaces = ["mur620b", "mur620c"]
     arms = ["UR10_l", "UR10_r"]
 
     replicator = VirtualObjectReplicator(follower_namespaces, arms)

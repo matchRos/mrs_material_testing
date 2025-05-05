@@ -23,5 +23,21 @@
         </include>
     </group>
 
+    <group ns="$(arg robot2_name)/UR10_l">
+
+        <include file="$(find virtual_object)/launch/virtual_object.launch">
+            <arg name="frame_id"     default="$(arg robot2_name)" /> 
+            <arg name="tf_prefix"   default="$(arg robot2_name)/UR10_l" />
+        </include>
+    </group>
+
+    <group ns="$(arg robot2_name)/UR10_r">
+
+        <include file="$(find virtual_object)/launch/virtual_object.launch">
+            <arg name="frame_id"     default="$(arg robot2_name)" /> 
+            <arg name="tf_prefix"   default="$(arg robot2_name)/UR10_r" />
+        </include>
+    </group>
+
 
   </launch>
