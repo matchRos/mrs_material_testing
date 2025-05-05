@@ -21,7 +21,7 @@ def main():
     d_end = 0.02
     d_step = (d_end - d_start) / steps
     phi_start = 0.0
-    phi_end = -10.0
+    phi_end = -0.0
     omega = ((phi_end - phi_start) / 180 * math.pi) / duration
 
     for i in range(wait):
@@ -42,6 +42,16 @@ def main():
         pose_msg.position.x = 0
         pose_msg.position.y = d_start 
         mur620b_UR10r_pub.publish(pose_msg)
+
+        # Mur620c UR10l
+        pose_msg.position.x = -d_start
+        pose_msg.position.y = 0
+        mur620c_UR10l_pub.publish(pose_msg)
+
+        # Mur620c UR10r
+        pose_msg.position.x = 0
+        pose_msg.position.y = -d_start
+        mur620c_UR10r_pub.publish(pose_msg)
 
         rate.sleep()
 
@@ -69,6 +79,18 @@ def main():
         pose_msg.position.x = 0
         pose_msg.position.y = d_start + i * d_step
         mur620b_UR10r_pub.publish(pose_msg)
+
+        # Mur620c UR10l
+        pose_msg.position.x = -d_start - i * d_step
+        pose_msg.position.y = 0
+        mur620c_UR10l_pub.publish(pose_msg)
+
+        # Mur620c UR10r
+        pose_msg.position.x = 0
+        pose_msg.position.y = -d_start - i * d_step
+        mur620c_UR10r_pub.publish(pose_msg)
+        
+
 
         if rospy.is_shutdown():
             break
