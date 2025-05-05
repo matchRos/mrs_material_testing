@@ -11,17 +11,20 @@ def main():
     mur620b_UR10r_pub = rospy.Publisher('/mur620b/UR10_r/relative_pose_offset', Pose, queue_size=10)
     mur620c_UR10l_pub = rospy.Publisher('/mur620c/UR10_l/relative_pose_offset', Pose, queue_size=10)
     mur620c_UR10r_pub = rospy.Publisher('/mur620c/UR10_r/relative_pose_offset', Pose, queue_size=10)
-    mur620c_UR10l_virtual_object_pub = rospy.Publisher('/mur620b/UR10_l/virtual_object/object_cmd_vel', Twist, queue_size=10)
+    mur620b_UR10l_virtual_object_pub = rospy.Publisher('/mur620b/UR10_l/virtual_object/object_cmd_vel', Twist, queue_size=10)
+    mur620b_UR10r_virtual_object_pub = rospy.Publisher('/mur620b/UR10_r/virtual_object/object_cmd_vel', Twist, queue_size=10)
+    mur620c_UR10l_virtual_object_pub = rospy.Publisher('/mur620c/UR10_l/virtual_object/object_cmd_vel', Twist, queue_size=10)
+    mur620c_UR10r_virtual_object_pub = rospy.Publisher('/mur620c/UR10_r/virtual_object/object_cmd_vel', Twist, queue_size=10)
 
-    rate = rospy.Rate(100)  # 100 Hz
-    duration = 10.0  # seconds
+    rate = rospy.Rate(10)  # 100 Hz
+    duration = 20.0  # seconds
     steps = int(duration * 100)  # 500 steps
     wait = int(duration * 1)  # 500 steps
     d_start = 0.0
     d_end = 0.02
     d_step = (d_end - d_start) / steps
     phi_start = 0.0
-    phi_end = -0.0
+    phi_end = 60.0
     omega = ((phi_end - phi_start) / 180 * math.pi) / duration
 
     for i in range(wait):
@@ -53,6 +56,7 @@ def main():
         pose_msg.position.y = -d_start
         mur620c_UR10r_pub.publish(pose_msg)
 
+
         rate.sleep()
 
     rospy.loginfo("Bewegung abgeschlossen.")
@@ -74,21 +78,27 @@ def main():
         pose_msg.position.y = 0
         mur620b_UR10l_pub.publish(pose_msg)
         twist_msg.angular.x = omega
-        mur620c_UR10l_virtual_object_pub.publish(twist_msg)
+        mur620b_UR10l_virtual_object_pub.publish(twist_msg)
         # Mur620b UR10r
         pose_msg.position.x = 0
         pose_msg.position.y = d_start + i * d_step
         mur620b_UR10r_pub.publish(pose_msg)
+        twist_msg.angular.x = omega * 0.5
+        mur620b_UR10r_virtual_object_pub.publish(twist_msg)
 
         # Mur620c UR10l
         pose_msg.position.x = -d_start - i * d_step
         pose_msg.position.y = 0
         mur620c_UR10l_pub.publish(pose_msg)
+        twist_msg.angular.x = 0.0
+        mur620c_UR10l_virtual_object_pub.publish(twist_msg)
 
         # Mur620c UR10r
         pose_msg.position.x = 0
         pose_msg.position.y = -d_start - i * d_step
         mur620c_UR10r_pub.publish(pose_msg)
+        twist_msg.angular.x = omega * 0.5
+        mur620c_UR10r_virtual_object_pub.publish(twist_msg)
         
 
 
